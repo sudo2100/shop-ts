@@ -76,8 +76,7 @@ const SignIn = () => {
                         placeholder="비밀번호를 입력해주세요"
                     />
                 </div>
-                {error && 
-                    <p className="sign-up_error">{error}</p>}
+                {error && <p className="sign-up_error">{error}</p>}
                 <button type="submit">로그인</button>
             </form>
 

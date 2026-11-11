@@ -39,8 +39,9 @@ app.get("/api/products", async (req, res) => {
         const result = await db.query(sql); //db에서 꺼내온 데이터
         res.json(result.rows);  //요청한 곳에 반환
     }catch(err){
+        // 500: 코드 오류
         console.error("상품 목록 조회 오류!!", err);
-        res.send("상품 목록 조회 오류!!")
+        res.status(500).send("상품 목록 조회 오류!!")
     }
 });
 
@@ -53,7 +54,7 @@ app.get("/api/products/:id", async (req, res) => {
         res.json(result.rows[0]);  //요청한 곳에 반환
     }catch(err){
         console.error("상품 조회 오류!!", err);
-        res.send("상품 조회 오류!!")
+        res.status(500).send("상품 조회 오류!!")
     }
 });
 
@@ -67,7 +68,7 @@ app.post("/api/products", async (req, res) => {
         res.send("상품 등록 완료!");
     }catch(err){
          console.error("상품 등록 오류!!", err);
-        res.send("상품 등록 오류!!")
+        res.status(500).send("상품 등록 오류!!")
     }
 })
 
@@ -80,7 +81,7 @@ app.delete("/api/products/:id", async (req, res) => {
         res.send("상품 삭제 완료!")  //요청한 곳에 반환
     }catch(err){
         console.error("상품 삭제 오류!!", err);
-        res.send("상품 삭제 오류!!")
+        res.status(500).send("상품 삭제 오류!!")
     }
 });
 
@@ -95,7 +96,7 @@ app.put("/api/products/:id", async (req, res) => {
         res.send("상품 수정 완료!");
     }catch(err){
         console.error("상품 수정 오류!!", err);
-        res.send("상품 수정 오류!!")
+        res.status(500).send("상품 수정 오류!!")
     }
 })
 
@@ -107,7 +108,7 @@ app.get("/api/users", async (req, res) => {
         res.json(result.rows);  //요청한 곳으로 json형식으로 반환
     }catch(err){
         console.error("회원 목록 조회 오류!!", err);
-        res.send("회원 목록 조회 오류!!")
+        res.status(500).send("회원 목록 조회 오류!!")
     } 
 });
 
@@ -118,8 +119,9 @@ app.post("/api/users/login", async (req, res) => {
             + "username=$1 AND password=$2 ";
     try{
         const result = await db.query(sql, [username, password]);
+        // 401: 인증실패,  404: 페이지를 찾을 수 없을때
         if(result.rows.length === 0){
-            return res.send("아이디 또는 비밀번호가 일치하지 않습니다.");
+            return res.status(401).send("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
         res.json({
             message: "로그인 성공",
@@ -127,7 +129,7 @@ app.post("/api/users/login", async (req, res) => {
         });  //요청한 곳으로 json형식으로 반환
     }catch(err){
         console.error("회원 로그인 중 오류!!", err);
-        res.send("회원 로그인 중 오류!!")
+        res.status(500).send("회원 로그인 중 오류!!")
     } 
 });
 
@@ -141,7 +143,7 @@ app.post("/api/users", async (req, res) => {
         res.send("회원 가입 완료!");
     }catch(err){
         console.error("회원가입 중 오류!!", err);
-        res.send("회원가입 중 오류!!")
+        res.status(500).send("회원가입 중 오류!!")
     } 
 });
 

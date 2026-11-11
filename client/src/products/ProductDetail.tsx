@@ -1,6 +1,7 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useProduct } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 
 const NO_IMAGE = "/images/no-image.png"
 // 상품 상세보기 컴포넌트
@@ -8,6 +9,8 @@ const ProductDetail = () => {
     const {id} = useParams<{id: string}>();
     const {products} = useProduct();
     const {addToCart} = useCart();
+    const { currentUser } = useUser();
+    const navigate = useNavigate();
 
     // find() 로 해당 id와 일치하는 상품 찾기
     // product/3  - 3이 문자이므로 숫자로 형변환
@@ -36,6 +39,11 @@ const ProductDetail = () => {
             <button 
                 className="product-detail_cart"
                 onClick={() => {
+                    if(!currentUser){
+                        alert("로그인이 필요합니다.");
+                        navigate('/signin');
+                        return;
+                    }
                     addToCart(product.id, 1);
                     alert("상품이 장바구니에 담겼습니다.")
                 }}>담기</button>
