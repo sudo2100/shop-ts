@@ -5,7 +5,8 @@ import type {Product, NewProduct} from "../types/product"
 interface ProductContextType{
     products: Product[];  //상품목록, 상품상세보기
     addProduct: (newProduct: NewProduct) => Promise<void>;  // 상품 등록
-    removeProduct: (productId: number) => Promise<void>;
+    removeProduct: (productId: number) => Promise<void>; //상품 삭제
+    updateProduct: (updatedProduct: Product) => Promise<void>; //수정
 }
 
 // 상품 컨텍스트 생성

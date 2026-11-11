@@ -39,7 +39,18 @@ export const createProduct = async (product: NewProduct) => {
     });
 } 
 
-// 상품 삭제
+// 상품 삭제 - api.delete()
 export const deleteProduct = async (productId: number) => {
     await api.delete(`/products/${productId}`);
+}
+
+// 상품 수정(폼에서 수정한 데이터 -> DB로 보내기) : api.put()
+export const modifyProduct = async (product: Product) => {
+    await api.put(`/products/${product.id}`, {
+        pName: product.pName,
+        category: product.category,
+        price: product.price,
+        description: product.description,
+        image: product.image
+    })
 }

@@ -7,7 +7,7 @@ const NO_IMAGE = "/images/no-image.png"
 // 상품 상세보기 컴포넌트
 const ProductDetail = () => {
     const {id} = useParams<{id: string}>();
-    const {products} = useProduct();
+    const {products, removeProduct} = useProduct();
     const {addToCart} = useCart();
     const { currentUser } = useUser();
     const navigate = useNavigate();
@@ -18,6 +18,18 @@ const ProductDetail = () => {
 
     if(!product){
         return <div>상품을 찾을 수 없습니다.</div>
+    }
+
+    // 상품 삭제 핸들러
+    const handleDelete = async () => {
+        if(!window.confirm("정말로 상품을 삭제할까요?")) return;
+        try{
+            await removeProduct(product.id); // 삭제 함수 호출
+            alert("상품이 삭제되었습니다.");
+            navigate('/'); // 상품 목록
+        }catch{
+            alert("상품 삭제 중 오류가 발생했습니다.");
+        }
     }
 
     return(
@@ -49,8 +61,16 @@ const ProductDetail = () => {
                 }}>담기</button>
                 {/* 수정, 삭제-권한 관리자는 보이고, 회원은 보이지 않음 기능 */}
                 <div className="product-detail_admin">
-                    <span className="product-detail_edit">수정</span>
-                    <button className="product-detail_delete">삭제</button>
+                    <Link 
+                        to={`/product/${product.id}/edit`} 
+                        className="product-detail_edit"
+                    >
+                      수정
+                    </Link>
+                    <button 
+                        className="product-detail_delete"
+                        onClick={handleDelete}
+                    >삭제</button>
                 </div>
         </div>
     )
