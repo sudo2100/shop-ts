@@ -1,6 +1,7 @@
 import express from 'express'
 import pg from 'pg'
 import cors from 'cors'
+import bcrypt from 'bcrypt'
 
 // express 객체 생성
 const app = express();
@@ -139,7 +140,9 @@ app.post("/api/users", async (req, res) => {
     const sql = "INSERT INTO users(username, password, name, email) "
             + "VALUES ($1, $2, $3, $4)";
     try{
-        await db.query(sql, [username, password, name, email]);
+        // 비밀번호 암호화(해시)해서 저장. 10은 암호화 반복 정도
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await db.query(sql, [username, hashedPassword, name, email]);
         res.send("회원 가입 완료!");
     }catch(err){
         console.error("회원가입 중 오류!!", err);

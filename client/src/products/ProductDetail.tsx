@@ -12,6 +12,9 @@ const ProductDetail = () => {
     const { currentUser } = useUser();
     const navigate = useNavigate();
 
+    // 관리자 인증
+    const isAdmin = currentUser?.role === "admin";
+
     // find() 로 해당 id와 일치하는 상품 찾기
     // product/3  - 3이 문자이므로 숫자로 형변환
     const product = products.find(p => p.id === Number(id))
@@ -60,18 +63,19 @@ const ProductDetail = () => {
                     alert("상품이 장바구니에 담겼습니다.")
                 }}>담기</button>
                 {/* 수정, 삭제-권한 관리자는 보이고, 회원은 보이지 않음 기능 */}
-                <div className="product-detail_admin">
-                    <Link 
-                        to={`/product/${product.id}/edit`} 
-                        className="product-detail_edit"
-                    >
-                      수정
-                    </Link>
-                    <button 
-                        className="product-detail_delete"
-                        onClick={handleDelete}
-                    >삭제</button>
-                </div>
+                {isAdmin && (
+                    <div className="product-detail_admin">
+                        <Link 
+                            to={`/product/${product.id}/edit`} 
+                            className="product-detail_edit"
+                        >
+                        수정
+                        </Link>
+                        <button 
+                            className="product-detail_delete"
+                            onClick={handleDelete}
+                        >삭제</button>
+                    </div>)}
         </div>
     )
 }

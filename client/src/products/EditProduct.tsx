@@ -133,9 +133,8 @@ const EditProductForm = ({product}: {product: Product}) => {
             </div>
             {error && <p className="product-add_error">{error}</p>}
             <div className="product-add_buttons">
-            <button type="submit">저장</button>
-            <button type="button" onClick={handleReset}>되돌리기</button>
-            <button type="button" onClick={() => navigate(`/product/${product.id}`)}>취소</button>
+                <button type="submit">저장</button>
+                <button type="button" onClick={handleReset}>취소</button>
             </div>
           </form>
         </div>
