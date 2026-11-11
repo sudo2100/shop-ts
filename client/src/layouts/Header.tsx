@@ -1,12 +1,13 @@
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext';
 
 const Header = () => {
     // totalQuantity() 가져오기
     // 장바구니() -> 표시하기
-    const {totalQuantity} = useCart();
+    const {totalQuantity, clearCart} = useCart();
     const {currentUser, logout} = useUser();
+    const navigate = useNavigate();
 
     // 관리자인지 확인(isAdmin = true)
     const isAdmin = currentUser?.role === "admin";
@@ -17,6 +18,13 @@ const Header = () => {
             e.preventDefault();
             alert("상품 등록은 관리자만 가능합니다.");
         }
+    }
+
+    // 로그아웃시 장바구니 비우기
+    const handleLogout = () => {
+        clearCart();
+        logout();
+        navigate('/'); // 상품 목록 페이지 이동
     }
 
     return(
@@ -32,7 +40,7 @@ const Header = () => {
                 {currentUser ? (
                     <>
                         <span>{currentUser.name}님</span>
-                        <button onClick={logout}>로그아웃</button>
+                        <button onClick={handleLogout}>로그아웃</button>
                     </>
                 ) : (
                      <Link to='/signin'>로그인</Link>

@@ -47,6 +47,11 @@ const ProductDetail = () => {
                     addToCart(product.id, 1);
                     alert("상품이 장바구니에 담겼습니다.")
                 }}>담기</button>
+                {/* 수정, 삭제-권한 관리자는 보이고, 회원은 보이지 않음 기능 */}
+                <div className="product-detail_admin">
+                    <span className="product-detail_edit">수정</span>
+                    <button className="product-detail_delete">삭제</button>
+                </div>
         </div>
     )
 }

@@ -73,6 +73,26 @@ main {width: 100%; max-width: 960px; margin: 0 auto; padding: 24px; }
   border-top: 1px solid #ddd;
   line-height: 1.7;
 }
+/* 상품 상세 관리자 버튼 (수정 · 삭제) */
+.product-detail_admin {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+}
+.product-detail_edit,
+.product-detail_delete {
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: transparent; /* 투명 */
+  color: inherit;
+  cursor: pointer;
+}
+.product-detail_delete { color: #d93025; border-color: #d93025; }
 
 /* 상품 등록 스타일 */
 .product-add {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { ProductContext } from "./ProductContext"
 import type {NewProduct, Product} from "../types/product"
-import { getProducts, createProduct } from "../api/products"
+import { getProducts, createProduct, deleteProduct } from "../api/products"
 
 // ProductProvider는 저장소(repository) 역할
 const ProductProvider = ({children} : {children: React.ReactNode}) => {
@@ -20,8 +20,19 @@ const ProductProvider = ({children} : {children: React.ReactNode}) => {
         setProducts(await getProducts()); // 등록된 상품을 배열에 저장
     }
 
+    // 상품 삭제 함수
+    const removeProduct = async (productId: number) => {
+        await deleteProduct(productId); //삭제
+        // 이미 등록한 상품과 삭제를 누른 상품 아이디가 다른 상품 저장
+        setProducts(products.filter(product => product.id != productId));
+    }
+
     return(
-        <ProductContext.Provider value={{products, addProduct}}>
+        <ProductContext.Provider value={{
+            products, 
+            addProduct,
+            removeProduct
+        }}>
             {children}
         </ProductContext.Provider>
     )

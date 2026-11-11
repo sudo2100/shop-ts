@@ -38,3 +38,8 @@ export const createProduct = async (product: NewProduct) => {
         image: product.image
     });
 } 
+
+// 상품 삭제
+export const deleteProduct = async (productId: number) => {
+    await api.delete(`/products/${productId}`);
+}
