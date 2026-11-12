@@ -12,6 +12,7 @@ import SignUp from './users/SignUp'
 import SignIn from './users/SignIn'
 import AdminPage from './users/AdminPage'
 import EditProduct from './products/EditProduct'
+import MyPage from './users/MyPage'
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
                 {/* 회원 */}
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/signin' element={<SignIn />} />
+                <Route path='/mypage' element={<MyPage />} />
                 <Route path='/admin' element={<AdminPage />} />
               </Routes>
             </main>

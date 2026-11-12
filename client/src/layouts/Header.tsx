@@ -39,7 +39,7 @@ const Header = () => {
                 {isAdmin && <Link to='/admin'>관리자</Link>}
                 {currentUser ? (
                     <>
-                        <span>{currentUser.name}님</span>
+                        <Link to='/mypage'>{currentUser.name}님</Link>
                         <button onClick={handleLogout}>로그아웃</button>
                     </>
                 ) : (
