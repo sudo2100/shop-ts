@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 
 const AdminPage = () => {
     const { products } = useProduct();
-    const { users } = useUser();
+    const { users, isAuthLoading } = useUser();
+
+    if(isAuthLoading){
+      return <div>불러오는 중...</div>
+    }
 
     // 관리자 수 계산
     const adminCount = users.filter(user => user.role === "admin").length;
